@@ -32,7 +32,7 @@ def argumentParser() :
     parser.add_argument('-samples'     , type=int , default=20 , help='Number of Samples')
     parser.add_argument('-time-of-day' , type=int , default=0  , help='Time of the day at which measurements of trajectories start, \
                                                                        or the coordinates of static point sets are recorded.')
-    parser.add_argument('-input_file'    , type=str , default='finalShenzhen9386V6.mat', help='Input File')
+    parser.add_argument('-input_file'    , type=str , default='shenzhen_9386.mat', help='Input File')
     parser.add_argument('-output_folder' , type=str , default='clusters', help='Output folder')
     
     # From here http://tinyurl.com/l9dghj7 # default analysis takes place for points.
@@ -45,7 +45,7 @@ def argumentParser() :
 
 
 
-def  interpret_command_line_arguments(args, inputFile='finalShenzhen9386V6.mat'):
+def  interpret_command_line_arguments(args, inputFile='shenzhen_9386.mat'):
 	""" We are principally interested in the variables r, points(static) / trajectories, and lats and long variable.
         The rest of the body of this code-block is just setting up the file-reading below. 
 	time_of_day represents the time at which coordinates were measured for static point sets 

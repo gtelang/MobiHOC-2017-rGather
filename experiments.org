@@ -109,12 +109,13 @@ _On YAML_
 
 
 * Experimental Setup
-  To investigate the quality of the clusters given by the algorithms in the paper, we implemented and tested them them on a real-world
-  data set containing GPS trajectories of vehicles driving around Shenzhen, China. In this document, we compare their clustering qualities 
-  for both static point-clouds and trajectories from the Shenzen data-set. 
 
-  The implementations were done with the Python 2.7.12 *::* Anaconda 2.5.0 distribution on an Ubuntu 14.04 machine. The codes can be downloaded 
-  for review and testing from GitHub[1]. 
+  We implemented and tested the $2$-APX and $4$-APX algorithms for $r$-Gather against a real-world data-set of GPS trajectories of 
+  cars driving around Shenzhen, China. All cars had their GPS points sampled in lock-step for 24 hours at the same frequency. 
+  In this document, we compare the clustering qualities of the two algorithms on static point-clouds and trajectories from that data-set. 
+
+  All programs were written using Python 2.7.12 (Anaconda 2.5.0 distribution) on an Ubuntu 14.04 machine. They can be downloaded 
+  for review and testing from GitHub [1].
   
 * Clustering Static Points
 
