@@ -7,6 +7,7 @@ from sklearn.neighbors import NearestNeighbors
 import yaml
 import sys
 import argparse
+from termcolor import colored
 
 def trajectories_compare_max_and_90p_diameters ( data, fig, ax, core_output_file_name,
 						 outfolder= './figs/', outfile_extension='.eps'):
@@ -15,29 +16,38 @@ def trajectories_compare_max_and_90p_diameters ( data, fig, ax, core_output_file
 	algorithms. Compare against the lower bound of the 2-Approximation.
 	Use .eps, or .svg for vector ie. high-quality graphics.
 	"""
-
 	[rArray, diameters_2apx, diameters_4apx, d_r_max] = data
-	
 
 	# Title, legends and all that jazz
 	ylabel     = 'Max cluster diameter' # Max diameter of a cluster withing a set of clusters
-	plot_title = 'Comparing 2-APX and 4-APX algorithms for Trajectories \n' + ylabel +  ' vs $r$'
+	plot_title = '' #'Comparing 2-APX and 4-APX algorithms for Trajectories \n' + ylabel +  ' vs $r$'
 	xlabel     = 'Clustering Parameter $r$'
 
 	# fig save sizes: from here: http://stackoverflow.com/a/10262161/505306
 	fig_length  = 14
 	fig_breadth = 12
+
+	# Size of tick numbers along x and y axes.
+	xtick_size  = 27         ; xticks = rArray
+	ytick_size = xtick_size  ; #yticks are set extracted *after* plotting takes place.
 	
+	# Axis limits(Lower)
+	#M = max(  d_r_max + diameters_2apx + diameters_4apx  )
+	#ymin = 1.0    ; plt.ylim((ymin, M))
+	#ymax = 1.35 ; plt.ylim(ymax=ymax)
+
 	# Label sizes
-	title_size  = 28 
-	xlabel_size = 25
+	xlabel_size = 34
 	ylabel_size = xlabel_size
-	
+	labelpad    = 20
+
+	# Title size of plot
+	title_size  = 32 
 
 	# Legend
-	label_2apx    = '$2$-APX'
-	label_4apx    = '$4$-APX'
-	label_d_r_max = '$d_r^{max}$'
+	legend_2apx    = '$2$-APX'
+	legend_4apx    = '$4$-APX'
+	legend_d_r_max = '$d_r^{max}$'
 	
 	# Marker and line thickness
 	markersize      = 18
@@ -67,21 +77,35 @@ def trajectories_compare_max_and_90p_diameters ( data, fig, ax, core_output_file
 
 	fig.set_size_inches(fig_length, fig_breadth)
 	ax.grid(b=grid_on)
-	ax.plot(rArray, diameters_2apx , label =  label_2apx,    linestyle = ls_2apx    , marker = m_2apx    , markersize = markersize    , linewidth = linewidth, markeredgecolor = markeredgecolor, mew = markeredgewidth) 
-	ax.plot(rArray, diameters_4apx , label =  label_4apx,    linestyle = ls_4apx    , marker = m_4apx    , markersize = markersize*1.6, linewidth = linewidth, markeredgecolor = markeredgecolor, mew = markeredgewidth)
-	ax.plot(rArray, d_r_max        , label =  label_d_r_max, linestyle = ls_d_r_max , marker = m_d_r_max , markersize = markersize    , linewidth = linewidth, markeredgecolor = markeredgecolor, mew = markeredgewidth)
 
+	ax.plot(rArray, diameters_2apx , label =  legend_2apx,    linestyle = ls_2apx    ,
+		marker = m_2apx    , markersize = markersize    , linewidth = linewidth, markeredgecolor = markeredgecolor, mew = markeredgewidth) 
+
+	ax.plot(rArray, diameters_4apx , label =  legend_4apx,    linestyle = ls_4apx    ,
+		marker = m_4apx    , markersize = markersize*1.6, linewidth = linewidth, markeredgecolor = markeredgecolor, mew = markeredgewidth)
+
+	ax.plot(rArray, d_r_max        , label =  legend_d_r_max, linestyle = ls_d_r_max ,
+		marker = m_d_r_max , markersize = markersize    , linewidth = linewidth, markeredgecolor = markeredgecolor, mew = markeredgewidth)
+
+	# Set names
 	ax.legend(loc='upper_left', markerscale=0.5, handlelength=4)
-	ax.set_xlabel(xlabel, fontdict={'fontsize':xlabel_size})
-	ax.set_ylabel(ylabel, fontdict={'fontsize':ylabel_size})
+	ax.set_xlabel(xlabel, fontdict={'fontsize':xlabel_size}, labelpad = labelpad)
+	ax.set_ylabel(ylabel, fontdict={'fontsize':ylabel_size}, labelpad = labelpad)
 	ax.set_title(plot_title, fontdict={'fontsize':title_size})
 
+	# Make the ticks larger than default
+	plt.xticks(xticks, fontsize = xtick_size)
+	plt.yticks(ax.get_yticks(), fontsize = xtick_size)
+
+
+	# Save to disk
 	fig.savefig( outfolder + core_output_file_name + outfile_extension )
 
 
 def main():
 
-
+	print "Hello World"
+	print colored ("Started script", "magenta")
 	#############################################################################
 	# Read the data-file provided as command-line argument. Should be a YAML file
 	#############################################################################
@@ -114,3 +138,7 @@ def main():
 						    ax  = ax,
 						    core_output_file_name = core_output_file_name)
 	plt.show()
+
+
+if __name__=="__main__":
+	main()

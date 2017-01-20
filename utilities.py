@@ -118,7 +118,7 @@ def compute_max_cluster_diameter_trajectories( pointCloud, clusterings ):
 
 	       diameters_of_clusters.append( diameter_cluster )			     
 
-       return  max(diameters_of_clusters)  # np.percentile(diameters_of_clusters, 100) 
+       return  max(diameters_of_clusters) #, diameters_of_clusters  # np.percentile(diameters_of_clusters, 100) 
 
 
 def compute_90p_cluster_diameter_trajectories( pointCloud, clusterings ):
